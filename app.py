@@ -17,10 +17,16 @@ st.set_page_config(
 # LOAD MODEL
 # =========================================================
 
+import os
+
 @st.cache_resource
 def load_model():
-    model = joblib.load(r"C:\Users\kalya\OneDrive\Desktop\app\diabetes_gradient_boosting_model.pkl")
-    preprocessor = joblib.load(r"C:\Users\kalya\OneDrive\Desktop\app\diabetes_preprocessor.pkl")
+    # Load directly from the current repository folder
+    model_path = os.path.join(os.path.dirname(__file__), "diabetes_gradient_boosting_model.pkl")
+    preprocessor_path = os.path.join(os.path.dirname(__file__), "preprocessor.pkl") # Update filename if different
+
+    model = joblib.load(model_path)
+    preprocessor = joblib.load(preprocessor_path)
     return model, preprocessor
 
 
