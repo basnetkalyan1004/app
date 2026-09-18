@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import os
 
 # =========================================================
 # PAGE CONFIGURATION
@@ -17,16 +18,24 @@ st.set_page_config(
 # LOAD MODEL
 # =========================================================
 
-import os
-
 @st.cache_resource
 def load_model():
-    # Load directly from the current repository folder
-    model_path = os.path.join(os.path.dirname(__file__), "diabetes_gradient_boosting_model.pkl")
-    preprocessor_path = os.path.join(os.path.dirname(__file__), "preprocessor.pkl") # Update filename if different
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+    model_path = os.path.join(
+        base_dir,
+        "diabetes_gradient_boosting_model.pkl"
+    )
+
+    preprocessor_path = os.path.join(
+        base_dir,
+        "diabetes_preprocessor.pkl"
+    )
 
     model = joblib.load(model_path)
     preprocessor = joblib.load(preprocessor_path)
+
     return model, preprocessor
 
 
